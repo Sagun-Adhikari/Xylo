@@ -5,9 +5,7 @@ async function startserver(){
     connectDB();
     PORT=process.env.PORT || 5000;
     await app.listen(PORT,()=>{
-        console.log(`server start at ${PORT}`);
-        
+        console.log(`server start at ${PORT}`); 
     })
 }
-
 startserver()
