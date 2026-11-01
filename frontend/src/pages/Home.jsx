@@ -1,36 +1,62 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../AuthContext";
-import Navbar from "../components/Navbar"
+import Navbar from "../components/Navbar";
+import CreatePost from "../components/CreatePost";
+import Post from "../components/Post";
 
 function Home() {
+    const [posts, setPosts] = useState([]);
 
-    const { user, setUser } = useContext(AuthContext);
-    const navigate = useNavigate();
+    useEffect(function () {
+        async function getPosts() {
+            const token = localStorage.getItem("token");
 
-    function handleLogout() {
+            try {
+                const response = await axios.get(
+                    "http://localhost:5000/api/posts",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
 
-        localStorage.removeItem("token");
+                setPosts(response.data.posts);
 
-        setUser(null);
+            } catch (error) {
+                console.log(error);
+            }
+        }
 
-        navigate("/login");
+        getPosts();
+    }, []);
+
+    function handlePostCreated(newPost) {
+        setPosts([newPost, ...posts]);
     }
 
     return (
         <>
-             <Navbar />
+            <Navbar />
 
-        <div className="home-container">
-            <h1>Welcome, {user.username}!</h1>
+            <div className="home-container">
+                <h1>Home Feed</h1>
 
-            <p>Email: {user.email}</p>
+                <CreatePost onPostCreated={handlePostCreated} />
 
-            <p>This is your social media dashboard.</p>
-
-            
-        </div>
+                <div className="feed">
+                    {posts.length === 0 ? (
+                        <p>No posts yet. Be the first to post!</p>
+                    ) : (
+                        posts.map(function (post) {
+                            return (
+                                <Post key={post._id} post={post} />
+                            );
+                        })
+                    )}
+                </div>
+            </div>
         </>
     );
 }
