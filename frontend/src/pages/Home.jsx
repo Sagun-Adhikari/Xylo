@@ -2,6 +2,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
+import Navbar from "../components/Navbar"
 
 function Home() {
 
@@ -18,6 +19,9 @@ function Home() {
     }
 
     return (
+        <>
+             <Navbar />
+
         <div className="home-container">
             <h1>Welcome, {user.username}!</h1>
 
@@ -25,10 +29,9 @@ function Home() {
 
             <p>This is your social media dashboard.</p>
 
-            <button onClick={handleLogout}>
-                Logout
-            </button>
+            
         </div>
+        </>
     );
 }
 

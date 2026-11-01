@@ -1,6 +1,7 @@
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
+import Profile from "./pages/Profile";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -32,6 +33,8 @@ function App() {
                 <Route path="/login" element={<Login />} />
 
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/profile" element={<ProtectedRoute> <Profile /></ProtectedRoute>}
+/>
 
                 <Route
                     path="/"
