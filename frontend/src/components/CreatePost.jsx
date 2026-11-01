@@ -40,7 +40,7 @@ function CreatePost({ onPostCreated }) {
                     required
                 />
 
-                <button type="submit">Publish</button>
+                <button type="submit">POST</button>
             </form>
         </div>
     );

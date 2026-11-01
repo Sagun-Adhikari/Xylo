@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import Profile from "./pages/Profile";
+import Messages from "./pages/Messages";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -44,6 +45,10 @@ function App() {
                         </ProtectedRoute>
                     }
                 />
+                <Route
+                    path="/messages"
+                    element={<ProtectedRoute><Messages /></ProtectedRoute>}
+/>
 
             </Routes>
         </BrowserRouter>
